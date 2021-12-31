@@ -1,0 +1,34 @@
+
+add detalis should not be empty after clicking the add button.
+after clicking add button the task written in add details should create a task in the list .
+show all tasks under add task bar.
+create checkbox button to mark the active task as a completed task.
+
+
+completed => if input is checked 
+active => if input is unchecked
+
+LATER 
+
+after clicking on the task should show the full task and able to edit it.
+create a delete button to delete task.and delete all completed tasks .
+
+
+
+
+variables 
+
+tasks 
+taskErr
+
+todo list array of object
+
+
+
+
+
+functions 
+input onChange
+button onclick
+
+

@@ -1,0 +1,8 @@
+.productsContainer {
+  width: 500px;
+}
+.productsContainer .text-danger {
+  right: 0;
+  position: absolute;
+  top: 58px;
+}

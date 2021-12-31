@@ -1,0 +1,90 @@
+.marketContainer {
+  max-width: 1150px;
+}
+/* header css */
+.heading {
+  color: #3d4052;
+  font-weight: 700;
+  line-height: 2;
+  position: relative;
+  text-transform: capitalize;
+}
+.heading:before {
+  background: #3d4052;
+  width: 70px;
+}
+.heading:after {
+  background: #5fb709;
+  width: 30px;
+}
+.heading:after,
+.heading:before {
+  height: 5px;
+  position: absolute;
+  content: "";
+  top: 90%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+/* searchbar css */
+.searchBar {
+  background-color: #727093;
+  padding: 35px;
+}
+
+/* grocery list css */
+
+.groceryItemsList li {
+  padding-bottom: 15px;
+}
+.boxWrapper {
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+}
+.infoWrapper {
+  border-bottom: 1px solid #3d4052;
+  border-top: 1px solid #3d4052;
+  padding: 15px;
+}
+.nameWrapper {
+  font-size: 18px;
+  font-weight: bold;
+}
+.quantityWrapper {
+  font-style: italic;
+  margin: 0;
+}
+
+.priceWrapper h6 {
+  font-size: 21px;
+}
+.priceWrapper .originalPrice {
+  font-size: 10px;
+  color: #565959;
+}
+
+/* cart css */
+
+.itemName {
+  width: 150px;
+}
+
+.buttonBox {
+  border: 1px solid #5fb709;
+}
+.buttonBox span {
+  border-left: 1px solid #5fb709;
+  border-right: 1px solid #5fb709;
+  border-radius: 0;
+}
+.buttonBox .lightGreen {
+  color: #5fb709;
+}
+
+.checkoutWrapper button {
+  background-color: #5fb709;
+  width: 100%;
+}
+.priceWrapper .cartButton {
+  background-color: #5fb709;
+}

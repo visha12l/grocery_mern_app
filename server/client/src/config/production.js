@@ -1,6 +1,6 @@
-const DOMAIN = "http://localhost:3003";
+const DOMAIN = "http://localhost:5000";
 export const API = {
-  TODO_END_POINT: `${DOMAIN}/todo`,
-  CLOTH_END_POINT: `${DOMAIN}/cloths`,
-  GROCERY_END_POINT: `${DOMAIN}/grocery`
+  PRODUCT_END_POINT: `${DOMAIN}/api/products`,
+  USER_END_POINT: `${DOMAIN}/api/users`,
+  CART_END_POINT: `${DOMAIN}/api/users/cart`
 };

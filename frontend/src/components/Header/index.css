@@ -1,0 +1,28 @@
+#header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 0.5rem 0;
+  background: #393575;
+  z-index: 999;
+  color: white;
+  margin-bottom: 100px;
+}
+.headerContainer {
+  max-width: 1200px;
+  width: 80%;
+  margin: 0 auto;
+}
+.nav-main {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerList {
+  list-style: none;
+  margin: 0.75rem 1rem;
+}
+
+.headerList a:hover {
+  color: rgb(60, 60, 60);
+}

@@ -1,0 +1,16 @@
+
+declare variables and data types of the variables 
+declare methods which will update variable values
+pass values to corresponding html element
+update value on events => onChange 
+function onChange
+filetr
+foodData
+condition to match searchInput with name of foodData.
+
+after clicking add button increase weight of the itmem by 1 => done
+and when clicked on minus button decrease weight of the item by 1 => done
+and when the item weight is 1 and minus button is clicked
+then remove that item from cart array using filter method. 
+give number of total items 
+if items = 0 then dont show subtotal div

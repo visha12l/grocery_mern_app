@@ -1,0 +1,15 @@
+.todoContainer {
+  margin-top: 20px;
+}
+.container .tabWrapper {
+  margin-top: 30px;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.react-tabs__tab--selected {
+  background-color: #0d6efd;
+  color: white;
+}

@@ -119,7 +119,7 @@ const GroceryApp = () => {
                 })}
           </ul>
         </div>
-        {cart.length !== 0 && <Cart />}
+        {!_.isEmpty(cart) && <Cart />}
       </div>
     </div>
   );

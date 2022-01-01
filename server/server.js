@@ -20,7 +20,13 @@ app.use("/api/users", userRoutes);
 app.get("/", (req, res) => {
   res.json({ message: "API running..." });
 });
-
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static("client/build"));
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 // middlewares to handle errors
 // app.use(notFound);
 // app.use(errorHandler);

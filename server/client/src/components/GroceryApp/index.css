@@ -64,11 +64,9 @@
 }
 
 /* cart css */
-
 .itemName {
-  width: 150px;
+  flex: 3;
 }
-
 .buttonBox {
   border: 1px solid #5fb709;
 }
@@ -87,4 +85,7 @@
 }
 .priceWrapper .cartButton {
   background-color: #5fb709;
+}
+.cartItems {
+  justify-content: space-evenly;
 }

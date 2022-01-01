@@ -10,13 +10,7 @@ const Header = () => {
   const navigate = useNavigate();
   const userName = useSelector(state => state.userSlice.user.name);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (!userName) {
-      navigate("/login");
-    } else {
-      navigate("/");
-    }
-  }, [userName]);
+
   return (
     <header id="header">
       <div className="headerContainer">

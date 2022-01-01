@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
 const connectDB = require("./config/db");
-const cors = require("cors");
 const path = require("path");
 
 connectDB();
@@ -15,12 +14,6 @@ const app = express();
 // this package is used to parse req body
 app.use(express.json());
 app.use(cookieParser());
-// cors errors temporary fix
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "https://grocery-app-vishal.herokuapp.com"]
-  })
-);
 app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/api/products", productRoutes);

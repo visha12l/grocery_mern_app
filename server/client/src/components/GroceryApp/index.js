@@ -21,7 +21,7 @@ const GroceryApp = () => {
 
   const { _id, name, cart } = user;
   const loadProductsData = async () => {
-    const result = await authServer.get(API.PRODUCT_END_POINT);
+    const result = await authServer.get("/products");
     dispatch(setProducts(result.data));
   };
 

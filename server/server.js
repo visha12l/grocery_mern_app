@@ -18,7 +18,7 @@ app.use(cookieParser());
 // cors errors temporary fix
 app.use(
   cors({
-    origin: ["http://localhost:3000"]
+    origin: ["http://localhost:3000", "https://grocery-app-vishal.herokuapp.com"]
   })
 );
 app.use(express.static(path.join(__dirname, "client/build")));

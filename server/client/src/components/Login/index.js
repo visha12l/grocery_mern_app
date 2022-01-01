@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/reducers/userSlice";
 import "react-toastify/dist/ReactToastify.css";
 import "./login.css";
+const { API } = require("../../config/" + process.env.NODE_ENV);
+
 // import {}
 function Login() {
   const [email, setEmail] = useState("");
@@ -37,7 +39,7 @@ function Login() {
       setEmailErr(false);
     }
     if (email !== "" && password !== "" && isValidEmail) {
-      const loginResponse = await axios.post("/api/users/login", { email, password });
+      const loginResponse = await axios.post(`${API.USER_END_POINT}/login`, { email, password });
       if (loginResponse.data.status === 400) {
         toast(loginResponse.data.message);
       } else {
@@ -80,6 +82,11 @@ function Login() {
                 placeholder="Password"
                 value={password}
                 onChange={event => setPassWord(event.target.value)}
+                onKeyDown={e => {
+                  if (e.keyCode == 13) {
+                    handleSubmit();
+                  }
+                }}
               />
               {passwordErr && (
                 <span className="text-danger text-left posAbsolute">invalid password</span>

@@ -4,67 +4,32 @@ const cookieParser = require("cookie-parser");
 const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
 const connectDB = require("./config/db");
-// const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
+const cors = require("cors");
+const path = require("path");
 
 connectDB();
+const PORT = process.env.PORT || 5000;
 
+console.log("Reached here");
 const app = express();
-
+// this package is used to parse req body
 app.use(express.json());
 app.use(cookieParser());
+// cors errors temporary fix
+app.use(
+  cors({
+    origin: ["http://localhost:3000"]
+  })
+);
+app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 
-// all routers
-// app.get("/", (req, res) => {
-//   res.json({ message: "API running..." });
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
 
-if (process.env.NODE_ENV == "production") {
-  app.use(express.static("client/build"));
-  const path = require("path");
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
-// middlewares to handle errors
-// app.use(notFound);
-// app.use(errorHandler);
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-// add redux before moving ahead
-// handle redirection after login and logout ?
-
-// need to search for library to send sms
-
-// place order flow
-// for now cash on delivery will be supported
-// place order with user's mobile number and current items
-// send message to user that order is recieved
-
-// send message to user that we have recieved his order
-
-// order in progress ? user should be able to call delivery agent
-// order delivered ? => send order delivered notification and text message
-
-// help option for user to call owner to get help with current order
-//
-
-// offers page =>
-// user should be able to see previous orders
-// previous order page should show it
-// when user place order
-
-// Admin
-// see Users data
-// see ongoing orders with delivery executive's number
-// see all previous orders
-
-// admin can add update and delete product items
-// add new product ?
-// update =>
-
-// filtering products data based on category
+app.listen(PORT, () => {
+  console.log("Server started on port", PORT);
+});

@@ -15,6 +15,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import reportWebVitals from "./reportWebVitals";
 import store, { persistor } from "./redux/store";
 import "./utils";
+
+// TODO
+//help option for user to call owner to get help with current order
+// offers page =>
+// user should be able to see previous orders
+// previous order page should show it
+// when user place order
+// filtering products data based on category
 const Routing = () => {
   return (
     <>

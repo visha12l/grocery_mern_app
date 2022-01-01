@@ -8,6 +8,7 @@ import "./index.css";
 import { setProducts } from "../../redux/reducers/productSlice";
 import { setUserCart } from "../../redux/reducers/userSlice";
 import Cart from "../Cart";
+const { API } = require("../../config/" + process.env.NODE_ENV);
 
 console.log("ENVIRONMENT", process.env);
 // TODO render seperate component for cart
@@ -20,12 +21,12 @@ const GroceryApp = () => {
 
   const { _id, name, cart } = user;
   const loadProductsData = async () => {
-    const result = await authServer.get("/products");
+    const result = await authServer.get(API.PRODUCT_END_POINT);
     dispatch(setProducts(result.data));
   };
 
   const loadCartData = async () => {
-    const savedData = await authServer.get(`/users/cart/${_id}`);
+    const savedData = await authServer.get(`${API.CART_END_POINT}/${_id}`);
     if (savedData) {
       dispatch(setUserCart(savedData.data.cart));
     }
@@ -36,7 +37,7 @@ const GroceryApp = () => {
   }, []);
 
   const updateCartDataOnServer = async updatedCartData => {
-    const result = await authServer.post(`/users/cart`, {
+    const result = await authServer.post(API.CART_END_POINT, {
       id: _id,
       cart: updatedCartData
     });
@@ -83,7 +84,7 @@ const GroceryApp = () => {
           <ul className="row groceryItemsList p-0">
             {productData.length > 0 &&
               productData
-                .filter(item => item.name.toLowerCase().includes(filterValue))
+                .filter(item => item?.name?.toLowerCase()?.includes(filterValue))
                 .map((item, key) => {
                   return (
                     <li key={key} className="col-sm-4">

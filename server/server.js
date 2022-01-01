@@ -17,9 +17,10 @@ app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 
 // all routers
-app.get("/", (req, res) => {
-  res.json({ message: "API running..." });
-});
+// app.get("/", (req, res) => {
+//   res.json({ message: "API running..." });
+// });
+
 if (process.env.NODE_ENV == "production") {
   app.use(express.static("client/build"));
   const path = require("path");

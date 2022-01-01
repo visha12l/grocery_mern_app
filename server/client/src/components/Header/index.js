@@ -6,6 +6,7 @@ import "./index.css";
 import Logo from "../../logo.png";
 
 const Header = () => {
+  console.log(process.env.NODE_ENV);
   const navigate = useNavigate();
   const userName = useSelector(state => state.userSlice.user.name);
   const dispatch = useDispatch();

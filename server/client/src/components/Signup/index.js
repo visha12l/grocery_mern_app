@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./signup.css";
 const { API } = require("../../config/" + process.env.NODE_ENV);
 
@@ -18,7 +18,6 @@ function Signup() {
   const [inputPassword, setInputPassword] = useState("password");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatchErr, setPasswordMatchErr] = useState(false);
-  const navigate = useNavigate();
 
   function resetForm() {
     setFirstName("");
@@ -113,9 +112,9 @@ function Signup() {
   return (
     <div className="container">
       <div className="signupContainer mx-auto">
-        <h1 className="text-center">Registration Form</h1>
+        <h1 className="text-center pb-3">Registration Form</h1>
         <form>
-          <div className="form-group row">
+          <div className="form-group pb-4 row">
             <label htmlFor="first name" className="col-sm-3 col-form-label">
               First name
             </label>
@@ -130,7 +129,7 @@ function Signup() {
               {firstNameErr && <span className="text-danger">first name should not be empty</span>}
             </div>
           </div>
-          <div className="form-group row">
+          <div className="form-group pb-4 row">
             <label htmlFor="last name" className="col-sm-3 col-form-label">
               Last name
             </label>
@@ -145,7 +144,7 @@ function Signup() {
               {lastNameErr && <span className="text-danger">Last name should not be empty</span>}
             </div>
           </div>
-          <div className="form-group row">
+          <div className="form-group pb-4 row">
             <label htmlFor="emailid" className="col-sm-3 col-form-label">
               Email id
             </label>
@@ -160,7 +159,7 @@ function Signup() {
               {emailErr && <span className="text-danger">enter valid email address</span>}
             </div>
           </div>
-          <div className="form-group row">
+          <div className="form-group pb-4 row">
             <label htmlFor="mobile number" className="col-sm-3 col-form-label">
               Mobile number
             </label>
@@ -186,7 +185,7 @@ function Signup() {
             </div>
           </div>
 
-          <div className="form-group row">
+          <div className="form-group pb-4 row">
             <label htmlFor="inputPassword" className="col-sm-3 col-form-label">
               Password
             </label>
@@ -200,14 +199,14 @@ function Signup() {
                 onChange={event => setPassword(event.target.value)}
               />
               {passwordErr && <span className="text-danger">password should be valid</span>}
-              <div className="showPasswordWrapper d-flex align-items-center">
+              <div className="showPasswordWrapper d-flex align-items-center mt-3">
                 <input className="cursor-pointer" type="checkbox" onClick={showPassword} />
                 <span>show password</span>
               </div>
             </div>
           </div>
 
-          <div className="form-group row">
+          <div className="form-group pb-4 row">
             <label htmlFor="inputPassword" className="col-sm-3 col-form-label ">
               Confirm Password
             </label>

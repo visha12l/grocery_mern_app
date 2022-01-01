@@ -74,9 +74,9 @@ const Cart = () => {
       <ul className="p-0">
         {cartData.map((food, key) => {
           return (
-            <li key={key} className="pb-3 d-flex align-items-center justify-content-between">
+            <li key={key} className="pb-3 d-flex align-items-center cartItems">
               <span className="itemName">{food.name}</span>
-              <div className="buttonBox">
+              <div className="buttonBox me-4">
                 <button
                   className="lightGreen btn"
                   onClick={() => handleCounterClick(key, "minus", food.weight)}
@@ -88,7 +88,7 @@ const Cart = () => {
                   +
                 </button>
               </div>
-              <span className="priceItem text-right">
+              <span className="priceItem text-right flex-2">
                 <strong>
                   ₹{(food.price - food.price / food.discountPercentage) * food.weight}
                 </strong>

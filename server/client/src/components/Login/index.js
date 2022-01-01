@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/reducers/userSlice";
@@ -14,7 +14,6 @@ function Login() {
   const [password, setPassWord] = useState("");
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   function validateEmail(email) {
     const re = /\S+@\S+\.\S+/;
@@ -47,7 +46,6 @@ function Login() {
         // set data into redux here
         dispatch(loginUser(loginResponse.data));
         toast("Login Successfull redirecting to app");
-        // navigate("/");
       }
       // TODO :: add notification component for success and error
       // redirect user to cart after successfull API call
@@ -60,7 +58,7 @@ function Login() {
       <div className="loginContainer mx-auto">
         <h1>Log in</h1>
         <form>
-          <div className="form-group row">
+          <div className="form-group py-3 row">
             <label className="col-sm-3 col-form-label">Email</label>
             <div className="col-sm-9">
               <input
@@ -73,7 +71,7 @@ function Login() {
               {emailErr && <span className="text-danger text-left posAbsolute">Invalid email</span>}
             </div>
           </div>
-          <div className="form-group row">
+          <div className="form-group py-3 row">
             <label className="col-sm-3 col-form-label">Password</label>
             <div className="col-sm-9">
               <input

@@ -13,17 +13,7 @@ code {
 .mainContainer {
   padding-top: 120px;
 }
-.App {
-  text-align: center;
-}
 
-.form-group {
-  padding: 10px 0;
-}
-.signUpActionWrap,
-.showPasswordWrapper {
-  margin-top: 20px;
-}
 .showPasswordWrapper input {
   width: 24px;
   height: 16px;
@@ -47,25 +37,24 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.clothingColum {
-  margin-bottom: 20px;
-}
+// redbtn commong class
 .redBtn {
   margin: 10px auto;
   padding: 10px 35px;
   margin-top: 20px;
   text-transform: uppercase;
   background: #dd216b;
-  color: #fff;
+  color: $white;
   font-weight: 700;
   font-size: 16px;
   border-radius: 5px;
 }
 .redBtn:hover {
-  color: #fff;
-  border: 1px solid #fff;
+  color: $white;
+  border: 1px solid $white;
 }
 
+// ImageWrapper common class
 .imageWrapper {
   width: 200px;
   height: 200px;

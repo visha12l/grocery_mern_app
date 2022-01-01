@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./signup.css";
+const { API } = require("../../config/" + process.env.NODE_ENV);
 
 function Signup() {
   const [firstName, setFirstName] = useState("");
@@ -104,7 +105,7 @@ function Signup() {
         mobileNumber,
         isAdmin: false
       };
-      const signupResponse = await axios.post("/api/users/signup", userData);
+      const signupResponse = await axios.post(`${API.USER_END_POINT}/signup`, userData);
       // TODO :: add notification component for success and error
     }
   }

@@ -2,10 +2,8 @@ import _ from "lodash";
 import React from "react";
 import { authServer } from "../../services";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { setUserCart } from "../../redux/reducers/userSlice";
-
+const { API } = require("../../config/" + process.env.NODE_ENV);
 // cart should be seperate collection whose value can be fetched by sending
 // user id
 
@@ -14,14 +12,14 @@ const Cart = () => {
   const userId = useSelector(state => state.userSlice.user._id);
   const dispatch = useDispatch();
   const loadCartData = async () => {
-    const savedData = await authServer.get(`/users/cart/${userId}`);
+    const savedData = await authServer.get(`${API.CART_END_POINT}/${userId}`);
     if (savedData) {
       dispatch(setUserCart(savedData.data.cart));
     }
   };
 
   const updateCartDataOnServer = async updatedCartData => {
-    const result = await authServer.post(`/users/cart`, {
+    const result = await authServer.post(API.CART_END_POINT, {
       id: userId,
       cart: updatedCartData
     });

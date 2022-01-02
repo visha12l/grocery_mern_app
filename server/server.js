@@ -5,6 +5,7 @@ const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
 const connectDB = require("./config/db");
 const path = require("path");
+const cors = require("cors");
 
 connectDB();
 const PORT = process.env.PORT || 5000;
@@ -14,6 +15,9 @@ const app = express();
 // this package is used to parse req body
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+    origin: '*'
+}));
 app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/api/products", productRoutes);

@@ -115,7 +115,7 @@ function Login() {
     <div className="container text-left">
       <ToastContainer />
       <div className="loginContainer mx-auto">
-        <div className="loginTab">
+        <div className="d-flex">
           <button
             className={`btn btn-primary m-1 ${loginType === "email" && "btn-info"}`}
             onClick={() => onChangeLoginType("email")}
@@ -149,12 +149,9 @@ function Login() {
         )}
         {!otpScreen && (
           <div className="pt-3 d-flex align-items-center">
-            <button className="btn btn-success col-sm-3 offset-sm-3" onClick={handleSubmit}>
+            <button className="btn btn-success col-sm-3" onClick={handleSubmit}>
               Submit
             </button>
-            <p className="m-0 ms-5">
-              Create New Account? <Link to="/signup">Sign up</Link>
-            </p>
           </div>
         )}
       </div>

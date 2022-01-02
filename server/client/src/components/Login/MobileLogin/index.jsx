@@ -5,26 +5,29 @@ const MobileLogin = ({ formData, errorField, setFormData }) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  
   return (
     <form>
       <div className="form-group py-3 row">
-        <label className="col-sm-3 col-form-label">Phone Number</label>
-        <div className="col-sm-9">
+        <label className={`col-sm-2 ${errorField?.phonenumber ? "text-danger" : ""}  col-form-label`}>Mobile</label>
+        <div className="col-sm-6">
           <input
             type="text"
             className={`form-control ${
-              errorField?.phonenumber ? "redBorder" : ""
+              errorField?.phonenumber ? "is-invalid" : ""
             }`}
-            placeholder="Phone Number"
+            placeholder="Enter Mobile Number"
             name="phonenumber"
             value={formData?.phonenumber}
             onChange={onChange}
           />
-          {errorField?.phonenumber && (
-            <span className="text-danger text-left posAbsolute">
-              {errorField.phonenumber}
-            </span>
-          )}
+        </div>
+        <div class="col-sm-4">
+            <small id="passwordHelp" class="text-danger">
+              {errorField.phonenumber && (
+                <span className="text-danger">{errorField.phonenumber}</span>
+              )}
+            </small>
         </div>
       </div>
     </form>

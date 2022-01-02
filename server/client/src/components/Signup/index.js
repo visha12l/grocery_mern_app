@@ -142,62 +142,62 @@ function Signup() {
           <>
             <form>
               <div className="form-group py-3 row">
-                <label htmlFor="first name" className="col-sm-3 col-form-label">
-                  First name
-                </label>
-                <div className="col-sm-9 inputWrapper">
+                <div className="col-sm-6 inputWrapper">
                   <input
                     type="text"
-                    className={`form-control ${firstNameErr ? "redBorder" : ""}`}
+                    className={`form-control ${firstNameErr ? "is-invalid" : ""}`}
                     placeholder="first name"
                     value={firstName}
                     onChange={event => setFirstName(event.target.value)}
                   />
-                  {firstNameErr && (
-                    <span className="text-danger">first name should not be empty</span>
-                  )}
+                </div>
+                <div class="col-sm-6">
+                  <small id="passwordHelp" class="text-danger">
+                    {firstNameErr && (
+                      <span className="text-danger">first name should not be empty</span>
+                    )}
+                  </small>
                 </div>
               </div>
               <div className="form-group py-3 row">
-                <label htmlFor="last name" className="col-sm-3 col-form-label">
-                  Last name
-                </label>
-                <div className="col-sm-9 inputWrapper">
+                <div className="col-sm-6 inputWrapper">
                   <input
                     type="text"
-                    className={`form-control ${lastNameErr ? "redBorder" : ""}`}
+                    className={`form-control ${lastNameErr ? "is-invalid" : ""}`}
                     placeholder="last name"
                     value={lastName}
                     onChange={event => setLastName(event.target.value)}
                   />
-                  {lastNameErr && (
-                    <span className="text-danger">Last name should not be empty</span>
-                  )}
+                </div>
+                <div class="col-sm-6">
+                  <small id="passwordHelp" class="text-danger">
+                    {lastNameErr && (
+                      <span className="text-danger">Last name should not be empty</span>
+                    )}
+                  </small>
                 </div>
               </div>
               <div className="form-group py-3 row">
-                <label htmlFor="emailid" className="col-sm-3 col-form-label">
-                  Email id
-                </label>
-                <div className="col-sm-9 inputWrapper">
+                <div className="col-sm-6 inputWrapper">
                   <input
                     type="text"
-                    className={`form-control ${emailErr ? "redBorder" : ""}`}
+                    className={`form-control ${emailErr ? "is-invalid" : ""}`}
                     placeholder="email"
                     value={email}
                     onChange={event => setEmail(event.target.value)}
                   />
-                  {emailErr && <span className="text-danger">enter valid email address</span>}
+                </div>
+                <div class="col-sm-6">
+                  <small id="passwordHelp" class="text-danger">
+                    {emailErr && <span className="text-danger">enter valid email address</span>}
+                  </small>
                 </div>
               </div>
               <div className="form-group py-3 row">
-                <label htmlFor="mobile number" className="col-sm-3 col-form-label">
-                  Mobile number
-                </label>
-                <div className="col-sm-9 inputWrapper">
+                <div className="col-sm-6 inputWrapper">
                   <input
                     type="number"
-                    className={`form-control ${mobileNumberErr ? "redBorder" : ""}`}
+                    className={`form-control ${mobileNumberErr ? "is-invalid" : ""}`}
                     placeholder="mobile number"
                     value={mobileNumber}
                     onChange={event => {
@@ -208,50 +208,56 @@ function Signup() {
                       }
                     }}
                   />
-                  {mobileNumberErr && (
-                    <span className="text-danger">
-                      mobile number should not be empty and it should be 10 digit numerics.
-                    </span>
-                  )}
+                </div>
+                <div class="col-sm-6">
+                  <small id="passwordHelp" class="text-danger">
+                    {mobileNumberErr && (
+                      <span className="text-danger">
+                        mobile number should not be empty and it should be 10 digit numerics.
+                      </span>
+                    )}
+                  </small>
                 </div>
               </div>
 
               <div className="form-group py-3 row">
-                <label htmlFor="inputPassword" className="col-sm-3 col-form-label">
-                  Password
-                </label>
-                <div className="col-sm-9 inputWrapper">
+                <div className="col-sm-6 inputWrapper">
                   <input
                     type={inputPassword}
-                    className={`form-control ${passwordErr ? "redBorder" : ""}`}
+                    className={`form-control ${passwordErr ? "is-invalid" : ""}`}
                     placeholder="Password"
                     id="passcode"
                     value={password}
                     onChange={event => setPassword(event.target.value)}
                   />
-                  {passwordErr && <span className="text-danger">password should be valid</span>}
                   <div className="showPasswordWrapper d-flex align-items-center mt-3">
                     <input className="cursor-pointer" type="checkbox" onClick={showPassword} />
                     <span>show password</span>
                   </div>
                 </div>
+                <div class="col-sm-6">
+                  <small id="passwordHelp" class="text-danger">
+                    {passwordErr && <span className="text-danger">password should be valid</span>}
+                  </small>
+                </div>
               </div>
 
               <div className="form-group py-3 row">
-                <label htmlFor="inputPassword" className="col-sm-3 col-form-label ">
-                  Confirm Password
-                </label>
-                <div className="col-sm-9 inputWrapper">
+                <div className="col-sm-6 inputWrapper">
                   <input
-                    className={`form-control ${passwordMatchErr ? "redBorder" : ""}`}
+                    className={`form-control ${passwordMatchErr ? "is-invalid" : ""}`}
                     placeholder="Re-enter Password"
                     type="text"
                     value={confirmPassword}
                     onChange={event => setConfirmPassword(event.target.value)}
                   />
-                  {passwordMatchErr && (
-                    <span className="text-danger">Password should be same </span>
-                  )}
+                </div>
+                <div class="col-sm-6">
+                  <small id="passwordHelp" class="text-danger">
+                    {passwordMatchErr && (
+                      <span className="text-danger">Password should be same </span>
+                    )}
+                  </small>
                 </div>
               </div>
             </form>

@@ -5,12 +5,13 @@ const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
 const connectDB = require("./config/db");
 const path = require("path");
-
+const cors = require("cors");
 connectDB();
 const PORT = process.env.PORT || 5000;
 
 console.log("Reached here");
 const app = express();
+app.use(cors({ origin: "*" }));
 // this package is used to parse req body
 app.use(express.json());
 app.use(cookieParser());

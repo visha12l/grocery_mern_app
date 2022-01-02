@@ -1,24 +1,30 @@
 import React from "react";
-import OtpInput from "react-otp-input";
 import "./index.modules.scss";
 
-const CustomOtpInput = ({ formData, fieldError, onChange }) => {
+const CustomOtpInput = ({ otpInput, otpErr, onSubmit, setOtpInput, btnText }) => {
   return (
-    <div>
-      <div className="prompt">
-        Enter the code generated on your mobile device below to log in!
-      </div>
-      <OtpInput
-        value={formData.otp}
-        onChange={onChange}
-        numInputs={6}
-        hasErrored={fieldError?.otp}
-        separator={<span>-</span>}
-        errorStyle="redBorder"
-      />
-      {fieldError?.otp && (
-        <span className="text-danger text-left">{fieldError.otp}</span>
-      )}
+    <div className="d-flex justify-content-center align-items-center">
+    <div className="position-relative">
+        <div className="card p-2 text-center">
+            <h6>Please enter the one time password <br /> to verify your account</h6>
+            <div> 
+              A code has been sent to
+              your mobile number
+            </div>
+            <div 
+              className="p-relative p-3">
+                <input
+                value={otpInput}
+                onChange={event => { setOtpInput(event.target.value)}} 
+                className="text-center form-control rounded" 
+                type="text" maxlength="6" /> 
+            {otpErr && <span className="text-danger">{otpErr}</span>}
+            </div>
+            <div className="mt-4"> 
+              <button onClick={onSubmit} className="btn btn-success px-4 validate">{btnText}</button> 
+            </div>
+        </div>
+    </div>
     </div>
   );
 };

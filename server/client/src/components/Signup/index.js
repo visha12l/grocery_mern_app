@@ -2,6 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./signup.css";
+import CustomOtpInput from "../common/CustomOtpInput";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const { API } = require("../../config/" + process.env.NODE_ENV);
 
 function Signup() {
@@ -18,8 +22,11 @@ function Signup() {
   const [inputPassword, setInputPassword] = useState("password");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatchErr, setPasswordMatchErr] = useState(false);
+  const [showEnterOtpScreen, setShowEnterOtpScreen] = useState(false);
+  const [otpInput, setOtpInput] = useState("");
+  const [otpErr, setOtpErr] = useState(false);
 
-  function resetForm() {
+  const resetForm = () => {
     setFirstName("");
     setLastName("");
     setEmail("");
@@ -32,22 +39,22 @@ function Signup() {
     setPasswordErr(false);
     setConfirmPassword("");
     setPasswordMatchErr(false);
-  }
+  };
 
-  function showPassword() {
+  const showPassword = () => {
     if (inputPassword === "password") {
       setInputPassword("text");
     } else {
       setInputPassword("password");
     }
-  }
+  };
 
-  function validateEmail(email) {
+  const validateEmail = email => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
-  }
+  };
 
-  async function handleSubmit() {
+  const handleSubmit = async () => {
     if (firstName === "") {
       setFirstNameErr(true);
     } else {
@@ -97,6 +104,22 @@ function Signup() {
       password === confirmPassword
     ) {
       // TODO modify isAdmin value to be sent dynamically
+      const generateOtp = await axios.post(`${API.USER_END_POINT}/sendOtp`, { email });
+      if (generateOtp && generateOtp.data.otp) {
+        // show enter otp screen
+        setShowEnterOtpScreen(true);
+      } else {
+        // show error and hide enter otp screen
+        toast(generateOtp.data.message);
+        setShowEnterOtpScreen(false);
+      }
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    const verifyOtp = await axios.post(`${API.USER_END_POINT}/verifyOtp`, { otpInput });
+    if (verifyOtp && verifyOtp.data.verified) {
+      // call signup API with data
       const userData = {
         name: `${firstName} ${lastName}`,
         email,
@@ -104,135 +127,156 @@ function Signup() {
         mobileNumber,
         isAdmin: false
       };
-      const signupResponse = await axios.post(`${API.USER_END_POINT}/signup`, userData);
-      // TODO :: add notification component for success and error
+      // const signupResponse = await axios.post(`${API.USER_END_POINT}/signup`, userData);
+    } else {
+      setOtpErr(verifyOtp.data.message);
     }
-  }
+  };
 
   return (
     <div className="container">
+      <ToastContainer />
       <div className="signupContainer mx-auto">
         <h1 className="text-center pb-3">Registration Form</h1>
-        <form>
-          <div className="form-group pb-4 row">
-            <label htmlFor="first name" className="col-sm-3 col-form-label">
-              First name
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="text"
-                className={`form-control ${firstNameErr ? "redBorder" : ""}`}
-                placeholder="first name"
-                value={firstName}
-                onChange={event => setFirstName(event.target.value)}
-              />
-              {firstNameErr && <span className="text-danger">first name should not be empty</span>}
-            </div>
-          </div>
-          <div className="form-group pb-4 row">
-            <label htmlFor="last name" className="col-sm-3 col-form-label">
-              Last name
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="text"
-                className={`form-control ${lastNameErr ? "redBorder" : ""}`}
-                placeholder="last name"
-                value={lastName}
-                onChange={event => setLastName(event.target.value)}
-              />
-              {lastNameErr && <span className="text-danger">Last name should not be empty</span>}
-            </div>
-          </div>
-          <div className="form-group pb-4 row">
-            <label htmlFor="emailid" className="col-sm-3 col-form-label">
-              Email id
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="text"
-                className={`form-control ${emailErr ? "redBorder" : ""}`}
-                placeholder="email"
-                value={email}
-                onChange={event => setEmail(event.target.value)}
-              />
-              {emailErr && <span className="text-danger">enter valid email address</span>}
-            </div>
-          </div>
-          <div className="form-group pb-4 row">
-            <label htmlFor="mobile number" className="col-sm-3 col-form-label">
-              Mobile number
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="number"
-                className={`form-control ${mobileNumberErr ? "redBorder" : ""}`}
-                placeholder="mobile number"
-                value={mobileNumber}
-                onChange={event => {
-                  if (event.target.value.length > 10) {
-                    event.preventDefault();
-                  } else {
-                    setMobileNumber(event.target.value);
-                  }
-                }}
-              />
-              {mobileNumberErr && (
-                <span className="text-danger">
-                  mobile number should not be empty and it should be 10 digit numerics.
-                </span>
-              )}
-            </div>
-          </div>
-
-          <div className="form-group pb-4 row">
-            <label htmlFor="inputPassword" className="col-sm-3 col-form-label">
-              Password
-            </label>
-            <div className="col-sm-9">
-              <input
-                type={inputPassword}
-                className={`form-control ${passwordErr ? "redBorder" : ""}`}
-                placeholder="Password"
-                id="passcode"
-                value={password}
-                onChange={event => setPassword(event.target.value)}
-              />
-              {passwordErr && <span className="text-danger">password should be valid</span>}
-              <div className="showPasswordWrapper d-flex align-items-center mt-3">
-                <input className="cursor-pointer" type="checkbox" onClick={showPassword} />
-                <span>show password</span>
+        {!showEnterOtpScreen && (
+          <>
+            <form>
+              <div className="form-group py-3 row">
+                <label htmlFor="first name" className="col-sm-3 col-form-label">
+                  First name
+                </label>
+                <div className="col-sm-9 inputWrapper">
+                  <input
+                    type="text"
+                    className={`form-control ${firstNameErr ? "redBorder" : ""}`}
+                    placeholder="first name"
+                    value={firstName}
+                    onChange={event => setFirstName(event.target.value)}
+                  />
+                  {firstNameErr && (
+                    <span className="text-danger">first name should not be empty</span>
+                  )}
+                </div>
               </div>
-            </div>
-          </div>
+              <div className="form-group py-3 row">
+                <label htmlFor="last name" className="col-sm-3 col-form-label">
+                  Last name
+                </label>
+                <div className="col-sm-9 inputWrapper">
+                  <input
+                    type="text"
+                    className={`form-control ${lastNameErr ? "redBorder" : ""}`}
+                    placeholder="last name"
+                    value={lastName}
+                    onChange={event => setLastName(event.target.value)}
+                  />
+                  {lastNameErr && (
+                    <span className="text-danger">Last name should not be empty</span>
+                  )}
+                </div>
+              </div>
+              <div className="form-group py-3 row">
+                <label htmlFor="emailid" className="col-sm-3 col-form-label">
+                  Email id
+                </label>
+                <div className="col-sm-9 inputWrapper">
+                  <input
+                    type="text"
+                    className={`form-control ${emailErr ? "redBorder" : ""}`}
+                    placeholder="email"
+                    value={email}
+                    onChange={event => setEmail(event.target.value)}
+                  />
+                  {emailErr && <span className="text-danger">enter valid email address</span>}
+                </div>
+              </div>
+              <div className="form-group py-3 row">
+                <label htmlFor="mobile number" className="col-sm-3 col-form-label">
+                  Mobile number
+                </label>
+                <div className="col-sm-9 inputWrapper">
+                  <input
+                    type="number"
+                    className={`form-control ${mobileNumberErr ? "redBorder" : ""}`}
+                    placeholder="mobile number"
+                    value={mobileNumber}
+                    onChange={event => {
+                      if (event.target.value.length > 10) {
+                        event.preventDefault();
+                      } else {
+                        setMobileNumber(event.target.value);
+                      }
+                    }}
+                  />
+                  {mobileNumberErr && (
+                    <span className="text-danger">
+                      mobile number should not be empty and it should be 10 digit numerics.
+                    </span>
+                  )}
+                </div>
+              </div>
 
-          <div className="form-group pb-4 row">
-            <label htmlFor="inputPassword" className="col-sm-3 col-form-label ">
-              Confirm Password
-            </label>
-            <div className="col-sm-9">
-              <input
-                className={`form-control ${passwordMatchErr ? "redBorder" : ""}`}
-                placeholder="Re-enter Password"
-                type="text"
-                value={confirmPassword}
-                onChange={event => setConfirmPassword(event.target.value)}
-              />
-              {passwordMatchErr && <span className="text-danger">Password should be same </span>}
+              <div className="form-group py-3 row">
+                <label htmlFor="inputPassword" className="col-sm-3 col-form-label">
+                  Password
+                </label>
+                <div className="col-sm-9 inputWrapper">
+                  <input
+                    type={inputPassword}
+                    className={`form-control ${passwordErr ? "redBorder" : ""}`}
+                    placeholder="Password"
+                    id="passcode"
+                    value={password}
+                    onChange={event => setPassword(event.target.value)}
+                  />
+                  {passwordErr && <span className="text-danger">password should be valid</span>}
+                  <div className="showPasswordWrapper d-flex align-items-center mt-3">
+                    <input className="cursor-pointer" type="checkbox" onClick={showPassword} />
+                    <span>show password</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group py-3 row">
+                <label htmlFor="inputPassword" className="col-sm-3 col-form-label ">
+                  Confirm Password
+                </label>
+                <div className="col-sm-9 inputWrapper">
+                  <input
+                    className={`form-control ${passwordMatchErr ? "redBorder" : ""}`}
+                    placeholder="Re-enter Password"
+                    type="text"
+                    value={confirmPassword}
+                    onChange={event => setConfirmPassword(event.target.value)}
+                  />
+                  {passwordMatchErr && (
+                    <span className="text-danger">Password should be same </span>
+                  )}
+                </div>
+              </div>
+            </form>
+            <div className="text-center signUpActionWrap row d-flex justify-content-center">
+              <button onClick={handleSubmit} className="btn btn-primary col-sm-3">
+                Sign Up
+              </button>
+              <button className="btn btn-warning col-sm-3" onClick={resetForm}>
+                Reset
+              </button>
+              <p>
+                Already have account? <Link to="/login">Login</Link>
+              </p>
             </div>
-          </div>
-        </form>
-        <div className="text-center signUpActionWrap row d-flex justify-content-center">
-          <button onClick={handleSubmit} className="btn btn-primary col-sm-3">
-            Sign Up
-          </button>
-          <button className="btn btn-warning col-sm-3" onClick={resetForm}>
-            Reset
-          </button>
-          <p>
-            Already have account? <Link to="/login">Login</Link>
-          </p>
-        </div>
+          </>
+        )}
+        {showEnterOtpScreen && (
+          <CustomOtpInput
+            btnText="Sign up"
+            otpErr={otpErr}
+            setOtpInput={setOtpInput}
+            otpInput={otpInput}
+            onSubmit={handleVerifyOtp}
+          />
+        )}
       </div>
     </div>
   );

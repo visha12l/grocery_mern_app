@@ -15,6 +15,9 @@ app.use(cors({ origin: "*" }));
 // this package is used to parse req body
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+    origin: '*'
+}));
 app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/api/products", productRoutes);

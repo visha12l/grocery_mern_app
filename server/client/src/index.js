@@ -34,8 +34,8 @@ const Routing = () => {
         <Header />
         <div className="mainContainer">
           <Routes>
-            <Route path="/login" element={userName ? <Navigate to="/grocery" /> : <Login />} />
-            <Route path="/signup" element={userName ? <Navigate to="/grocery" /> : <Signup />} />
+            <Route path="/login" element={userName ? <Navigate to="/" /> : <Login />} />
+            <Route path="/signup" element={userName ? <Navigate to="/" /> : <Signup />} />
             <Route
               exact
               path="/add-product"
@@ -47,7 +47,7 @@ const Routing = () => {
             />
             <Route
               exact
-              path="/grocery"
+              path="/"
               element={
                 <PrivateRoute>
                   <GroceryApp />

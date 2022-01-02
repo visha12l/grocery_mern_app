@@ -37,9 +37,9 @@ function AddProduct() {
         <div className="d-flex py-3 p-relative align-items-center">
           <div className="flex-1">Product Name</div>
           <input
-            className="col-form-label flex-2"
+            className="col-form-label px-3 flex-2"
             type="text"
-            placeholder="enter product name"
+            placeholder="Enter product name"
             onChange={event => setProductName(event.target.value)}
             value={productName}
           />
@@ -48,9 +48,9 @@ function AddProduct() {
         <div className="d-flex py-3 p-relative align-items-center">
           <div className="flex-1">Weight</div>
           <input
-            className="col-form-label flex-2"
+            className="col-form-label px-3 flex-2"
             type="number"
-            placeholder="enter weight"
+            placeholder="Enter weight"
             onChange={event => setProductWeight(event.target.value)}
             value={productWeight}
           />
@@ -59,20 +59,20 @@ function AddProduct() {
         <div className="d-flex py-3 p-relative align-items-center">
           <div className="flex-1">Product Price</div>
           <input
-            className="col-form-label flex-2"
+            className="col-form-label px-3 flex-2"
             type="number"
-            placeholder="enter price"
+            placeholder="Enter price"
             onChange={event => setProductPrice(event.target.value)}
             value={productPrice}
           />
           {priceErr && <span className="text-danger">price can not be empty</span>}
         </div>
         <div className="d-flex py-3 p-relative align-items-center">
-          <div className="flex-1">Discount Percentage</div>
+          <div className="flex-1">Discount</div>
           <input
-            className="col-form-label flex-2"
+            className="col-form-label px-3 flex-2"
             type="number"
-            placeholder="enter discount %"
+            placeholder="Enter discount %"
             onChange={event => setProductDiscount(event.target.value)}
             value={productDiscount}
           />
@@ -81,9 +81,9 @@ function AddProduct() {
         <div className="d-flex py-3 p-relative align-items-center">
           <div className="flex-1">Product Type</div>
           <input
-            className="col-form-label flex-2"
+            className="col-form-label px-3 flex-2"
             type="text"
-            placeholder="enter products type"
+            placeholder="Enter products type"
             onChange={event => setProductType(event.target.value)}
             value={productType}
           />

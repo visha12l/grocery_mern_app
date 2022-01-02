@@ -37,7 +37,7 @@ const Header = () => {
             </li>
             <li>
               {userName && (
-                <Link className="btn btn-primary m-3" to="/addproduct">
+                <Link className="btn btn-primary m-3" to="/add-product">
                   Add new product
                 </Link>
               )}

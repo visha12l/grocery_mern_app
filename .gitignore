@@ -106,6 +106,5 @@ dist
 build/
 .DS_Store
 server/client/src/components/.DS_Store
-package-lock.json
 server/client/build/
 build/*

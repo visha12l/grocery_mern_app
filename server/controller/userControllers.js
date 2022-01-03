@@ -1,5 +1,47 @@
 const User = require("../models/UserModel");
 const generateToken = require("../utils/generateToken");
+
+const sendOtp = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const userExists = await User.findOne({ email });
+    // check if user already exist in db
+    // if it is present in db throw error of already exists with status code
+    if (userExists) {
+      throw new Error("User already exists.");
+    }
+    return res.status(200).json({
+      otp: 123456
+    });
+  } catch (error) {
+    return res.status(200).json({
+      status: 400,
+      message: error.message ? error.message : "Something went wrong"
+    });
+  }
+};
+
+const verifyOtp = async (req, res) => {
+  try {
+    console.log("OTP", req.body.otpInput);
+    if (req.body.otpInput == 123456) {
+      return res.status(200).json({
+        verified: true
+      });
+    }
+    throw new Error("Otp is Incorrect.");
+  } catch (error) {
+    return res.status(200).json({
+      status: 400,
+      message: error.message ? error.message : "Something went wrong"
+    });
+  }
+
+  // return res.status(200).json({
+  //   otp: 123456
+  // });
+};
+
 const registerUser = async (req, res) => {
   // TODO :: send to user on his mobile number
   try {
@@ -103,6 +145,8 @@ const getUserCart = async (req, res) => {
 };
 
 module.exports = {
+  sendOtp,
+  verifyOtp,
   registerUser,
   loginUser,
   updateUserCart,

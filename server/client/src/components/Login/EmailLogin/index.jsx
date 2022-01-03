@@ -9,31 +9,29 @@ const EmailLogin = ({ errorField, handleSubmit, formData, setFormData }) => {
   return (
     <form>
       <div className="form-group py-3 row">
-        <label className="col-sm-3 col-form-label">Email</label>
-        <div className="col-sm-9">
-          <input
+        <label className={`col-sm-2 col-form-label ${errorField?.email ? "text-danger" : "text-success"}`}>Email</label>
+        <div className="col-sm-6 p-relative">
+           <input
             type="text"
-            className={`form-control ${errorField?.email ? "redBorder" : ""}`}
+            className={`form-control ${errorField?.email ? "is-invalid" : "is-valid"}`}
             placeholder="Email"
             name="email"
             value={formData?.email}
             onChange={onChange}
           />
-          {errorField?.email && (
-            <span className="text-danger text-left posAbsolute">
-              {errorField.email}
-            </span>
-          )}
+        </div>
+        <div class="col-sm-3">
+          <small id="passwordHelp" class="text-danger">
+            {errorField.email}
+          </small>      
         </div>
       </div>
       <div className="form-group py-3 row">
-        <label className="col-sm-3 col-form-label">Password</label>
-        <div className="col-sm-9">
+        <label className={`col-sm-2 col-form-label ${errorField?.password ? "text-danger" : "text-success"}`}>Password</label>
+        <div className="col-sm-6">
           <input
             type="password"
-            className={`form-control ${
-              errorField?.password ? "redBorder" : ""
-            }`}
+            className={`form-control ${errorField?.password ? "is-invalid" : "is-valid"}`}
             placeholder="Password"
             name="password"
             value={formData?.password}
@@ -44,12 +42,12 @@ const EmailLogin = ({ errorField, handleSubmit, formData, setFormData }) => {
               }
             }}
           />
-          {errorField?.password && (
-            <span className="text-danger text-left posAbsolute">
-              {errorField?.password}
-            </span>
-          )}
         </div>
+        <div class="col-sm-3">
+        <small id="passwordHelp" class="text-danger">
+        {errorField?.password}
+        </small>      
+      </div>
       </div>
     </form>
   );

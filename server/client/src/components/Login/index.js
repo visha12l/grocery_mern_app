@@ -18,24 +18,24 @@ function Login() {
     email: "",
     password: "",
     phonenumber: "",
-    otp: "",
+    otp: ""
   });
   const [fieldError, setFieldError] = useState({
     email: "",
     password: "",
     phonenumber: "",
-    otp: "",
+    otp: ""
   });
   const [otpScreen, setOtpScreen] = useState(false);
   function validateEmail(email) {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
   }
-  const validatePhoneNumber = (phonenumber) => {
+  const validatePhoneNumber = phonenumber => {
     const re = /^[789]\d{9}$/;
     return re.test(phonenumber);
   };
-  const validatePassword = (password) => {
+  const validatePassword = password => {
     return password.trim().length > 7;
   };
   const validateOtp = (otp, numInputs) => {
@@ -43,15 +43,11 @@ function Login() {
   };
   const [loginType, setLoginType] = useState("email");
   const dispatch = useDispatch();
-  const isEmailLogInFormValid = (
-    email = formData?.email,
-    password = formData?.password
-  ) => {
+
+  const isEmailLogInFormValid = (email = formData?.email, password = formData?.password) => {
     const updatedError = { ...fieldError };
     updatedError["email"] = validateEmail(email) ? "" : ERRORS.EMAIL_ID_VALID;
-    updatedError["password"] = validatePassword(password)
-      ? ""
-      : ERRORS.PASSWORD_LENGTH;
+    updatedError["password"] = validatePassword(password) ? "" : ERRORS.PASSWORD_LENGTH;
     setFieldError(updatedError);
     return validateEmail(email) && validatePassword(password);
   };
@@ -70,10 +66,10 @@ function Login() {
     return validateOtp(otp, 6);
   };
   const onEmailSubmit = async () => {
-    const loginResponse = await axios.post(
-      `http://grocery-app-vishal.herokuapp.com${API.USER_END_POINT}/login`,
-      { email: formData?.email, password: formData?.password }
-    );
+    const loginResponse = await axios.post(`${API.USER_END_POINT}/login`, {
+      email: formData?.email,
+      password: formData?.password
+    });
     if (loginResponse.data.status === 400) {
       toast(loginResponse.data.message);
     } else {
@@ -83,11 +79,7 @@ function Login() {
       toast("Login Successfull redirecting to app");
     }
   };
-  const otpSubmit = async () => {
-    if (isOtpValid()) {
-      //SUBMIT OTP CODE
-    }
-  };
+
   function handleSubmit() {
     if (loginType === "email" && isEmailLogInFormValid()) {
       onEmailSubmit();
@@ -95,7 +87,7 @@ function Login() {
       setOtpScreen(true);
     }
   }
-  const onChangeLoginType = (type) => {
+  const onChangeLoginType = type => {
     if (type !== loginType) {
       setLoginType(type);
       setOtpScreen(false);
@@ -103,36 +95,47 @@ function Login() {
       setFieldError({ email: "", password: "", phonenumber: "", otp: "" });
     }
   };
-  const onOtpChange = (otp) => {
+  const onOtpChange = otp => {
     setFormData({ ...formData, otp });
   };
+
+  const handleVerifyOtp = async () => {
+    const verifyOtp = await axios.post(`${API.USER_END_POINT}/verifyOtp`, {
+      otpInput: formData?.otp
+    });
+    if (verifyOtp && verifyOtp.data.verified) {
+      // call login API with data
+      // onEmailSubmit();
+    } else {
+      setFieldError({ ...fieldError, otp: verifyOtp.data.message });
+    }
+  };
+
   return (
     <div className="container text-left">
       <ToastContainer />
       <div className="loginContainer mx-auto">
-        <div className="loginTab">
+        <div className="d-flex">
           <button
-            className={`btn btn-primary m-1 ${
-              loginType === "email" && "btn-success"
-            }`}
+            className={`btn btn-primary m-1 ${loginType === "email" && "btn-info"}`}
             onClick={() => onChangeLoginType("email")}
           >
-            Log In Email
+            Email Login
           </button>
           <button
-            className={`btn btn-primary m-1 ${
-              loginType === "phonenumber" && "btn-success"
-            }`}
+            className={`btn btn-primary m-1 ${loginType === "phonenumber" && "btn-info"}`}
             onClick={() => onChangeLoginType("phonenumber")}
           >
-            Log In Mobile Number
+            Mobile Number Login
           </button>
         </div>
         {otpScreen ? (
           <CustomOtpInput
-            formData={formData}
-            fieldError={fieldError}
-            onChange={onOtpChange}
+            btnText="Log in"
+            otpInput={formData.otp}
+            otpErr={fieldError.otp}
+            setOtpInput={onOtpChange}
+            onSubmit={handleVerifyOtp}
           />
         ) : loginType === "email" ? (
           <EmailLogin
@@ -142,23 +145,15 @@ function Login() {
             setFormData={setFormData}
           />
         ) : (
-          <MobileLogin
-            errorField={fieldError}
-            formData={formData}
-            setFormData={setFormData}
-          />
+          <MobileLogin errorField={fieldError} formData={formData} setFormData={setFormData} />
         )}
-        <div className="pt-3 d-flex align-items-center">
-          <button
-            className="btn btn-primary col-sm-3 offset-sm-3"
-            onClick={otpScreen ? otpSubmit : handleSubmit}
-          >
-            {loginType === "email" || otpScreen ? "Log In" : "Submit"}
-          </button>
-          <p className="m-0 ms-5">
-            Create New Account? <Link to="/signup">Sign up</Link>
-          </p>
-        </div>
+        {!otpScreen && (
+          <div className="pt-3 d-flex align-items-center">
+            <button className="btn btn-success col-sm-3" onClick={handleSubmit}>
+              Submit
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

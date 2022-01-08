@@ -12,7 +12,7 @@ const placeOrder = async (req, res) => {
     if (createOrder) {
       const updateCart = await User.findOneAndUpdate({ _id: userId }, { cart: [] });
       if (updateCart) {
-        return res.status(200).json({ message: "Order placed successfully" });
+        return res.status(200).json({ orderPlaced: true });
       }
     }
   } catch (error) {

@@ -68,7 +68,9 @@ const Cart = () => {
       totalItems: cartData,
       userId
     });
-    // api call
+    if (placeOrderResp.data.orderPlaced) {
+      loadCartData();
+    }
   };
 
   return (

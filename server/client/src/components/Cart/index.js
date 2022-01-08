@@ -3,6 +3,7 @@ import React from "react";
 import { authServer } from "../../services";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserCart } from "../../redux/reducers/userSlice";
+import axios from "axios";
 const { API } = require("../../config/" + process.env.NODE_ENV);
 // cart should be seperate collection whose value can be fetched by sending
 // user id
@@ -60,6 +61,18 @@ const Cart = () => {
     }, 0);
   };
 
+  const placeOrder = async () => {
+    // send userId
+    // send cart
+    const placeOrderResp = await axios.post("/api/orders/placeOrder", {
+      totalItems: cartData,
+      userId
+    });
+    if (placeOrderResp.data.orderPlaced) {
+      loadCartData();
+    }
+  };
+
   return (
     <div className="col-sm-4">
       <div>
@@ -106,12 +119,7 @@ const Cart = () => {
             </div>
             <p className="d-none">Extra charges may apply</p>
             <div className="checkoutWrapper">
-              <button
-                className="btn btn-success"
-                onClick={() => {
-                  // this will be function to place order and clear users cart
-                }}
-              >
+              <button className="btn btn-success" onClick={placeOrder}>
                 Place Order -&gt;
               </button>
             </div>

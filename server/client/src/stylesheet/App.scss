@@ -151,3 +151,7 @@ input:not(:focus):valid ~ .floating-label {
   top: 18px;
   transition: 0.2s ease all;
 }
+
+.container p {
+  margin-bottom: 0;
+}

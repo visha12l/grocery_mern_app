@@ -1,11 +1,8 @@
 import _ from "lodash";
-import { authServer } from "../services";
 
 _.mixin({
-  updateCartDataOnServer: async function (id, updatedCartData) {
-    const result = await authServer.post(`/users/cart`, {
-      id,
-      cart: updatedCartData
-    });
+  formatDate: function (timeStamp) {
+    const date = new Date(timeStamp);
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   }
 });

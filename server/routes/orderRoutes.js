@@ -3,5 +3,6 @@ const router = express.Router();
 const { placeOrder, getAllOrders } = require("../controller/orderController");
 
 router.post("/placeOrder", placeOrder);
-router.get("/allOrder", getAllOrders);
+router.post("/getOrders", getAllOrders);
+
 module.exports = router;

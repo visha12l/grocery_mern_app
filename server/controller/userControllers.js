@@ -114,7 +114,6 @@ const updateUserCart = async (req, res) => {
   try {
     const { id, cart } = req.body;
     const updateCart = await User.findOneAndUpdate({ _id: id }, { cart: cart });
-    console.log("updateData", updateCart);
     if (updateCart) {
       return res.status(201).json({
         _id: updateCart._id,

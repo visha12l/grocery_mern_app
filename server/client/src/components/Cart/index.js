@@ -64,7 +64,7 @@ const Cart = () => {
   const placeOrder = async () => {
     // send userId
     // send cart
-    const placeOrderResp = await axios.post("/api/orders/placeOrder", {
+    const placeOrderResp = await axios.post(`${API.ORDER_ENDPOINT}/placeOrder`, {
       totalItems: cartData,
       userId
     });

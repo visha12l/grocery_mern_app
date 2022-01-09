@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Select from "react-select";
 import "./index.css";
 
 function AddProduct() {
@@ -12,6 +13,11 @@ function AddProduct() {
   const [priceErr, setPriceErr] = useState(false);
   const [discountErr, setDiscountErr] = useState(false);
   const [typeErr, setTypeErr] = useState(false);
+
+  const groceryTypes = [
+    { value: "vegetable", label: "Vegetable" },
+    { value: "fruits", label: "Fruits" }
+  ];
 
   function handleSubmit() {
     setNameErr(productName === "" ? true : false);
@@ -29,6 +35,11 @@ function AddProduct() {
       // call submit API
     }
   }
+
+  const handleSelectOnChange = selected => {
+    console.log(selected);
+    setProductType(selected.value);
+  };
 
   return (
     <div className="container">
@@ -78,18 +89,18 @@ function AddProduct() {
           />
           {discountErr && <span className="text-danger">Set discount percentage</span>}
         </div>
-        <div className="d-flex py-3 p-relative align-items-center">
+        <div className="d-flex py-4 p-relative align-items-center">
           <div className="flex-1">Product Type</div>
-          <input
-            className="col-form-label px-3 flex-2"
-            type="text"
+          <Select
             placeholder="Enter products type"
-            onChange={event => setProductType(event.target.value)}
-            value={productType}
+            className="col-form-label p-0 flex-2"
+            options={groceryTypes}
+            isSearchable={false}
+            onChange={selected => setProductType(selected.value)}
           />
           {typeErr && <span className="text-danger">mention type of product</span>}
         </div>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex mt-5 justify-content-center">
           <button className="btn btn-primary col-md-4" onClick={handleSubmit}>
             Add Product
           </button>

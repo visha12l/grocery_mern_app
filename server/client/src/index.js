@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
@@ -16,7 +17,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import reportWebVitals from "./reportWebVitals";
 import store, { persistor } from "./redux/store";
 import "./utils";
-import { Navigate } from "react-router-dom";
+import PastOrders from "./components/PastOrders";
 
 // TODO
 //help option for user to call owner to get help with current order
@@ -42,6 +43,15 @@ const Routing = () => {
               element={
                 <PrivateRoute>
                   <AddProduct />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/orders"
+              element={
+                <PrivateRoute>
+                  <PastOrders />
                 </PrivateRoute>
               }
             />

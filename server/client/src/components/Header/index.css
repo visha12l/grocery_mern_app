@@ -26,3 +26,21 @@
 .headerList a:hover {
   color: rgb(60, 60, 60);
 }
+
+.cartIconWrap .btn {
+  color: white;
+}
+
+.cartIconWrap img {
+  height: 38px;
+}
+
+.cartIconWrap .btn:hover {
+  color: white;
+}
+
+.headerContainer .btn-logOut {
+  background: #fc8019;
+  color: #fff;
+  border-color: #fc8019;
+}

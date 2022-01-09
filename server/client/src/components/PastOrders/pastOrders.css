@@ -1,0 +1,7 @@
+.pastOrderContainer {
+  max-width: 900px;
+}
+.pastOrderList li {
+  border: 1px solid #d4d5d9;
+  background-color: #aeccd2;
+}

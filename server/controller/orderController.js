@@ -1,13 +1,17 @@
 const Order = require("../models/Order");
 const User = require("../models/UserModel");
 
+Order.deleteMany({});
 const placeOrder = async (req, res) => {
+  await Order.deleteMany({});
+
   //TODO first check would be of jwt token
   try {
-    const { cartData, userId } = req.body;
+    const { totalItems, userId } = req.body;
+    console.log("cartData", totalItems);
     const createOrder = await Order.create({
       customerId: userId,
-      totalItems: cartData
+      totalItems
     });
     if (createOrder) {
       const updateCart = await User.findOneAndUpdate({ _id: userId }, { cart: [] });
@@ -23,7 +27,16 @@ const placeOrder = async (req, res) => {
   }
 };
 
-const getAllOrders = (req, res) => {};
+const getAllOrders = async (req, res) => {
+  const { userId } = req.body;
+  console.log("Reached here", req.body);
+
+  const pastOrders = await Order.find({ userId });
+  console.log(pastOrders);
+  if (pastOrders) {
+    return res.status(200).json({ pastOrders });
+  }
+};
 
 module.exports = {
   placeOrder,

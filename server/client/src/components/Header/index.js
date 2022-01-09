@@ -1,24 +1,25 @@
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/reducers/userSlice";
 import "./index.css";
-import Logo from "../../logo.png";
+import logoUrl from "../../logo.png";
+import cartImageUrl from "../../cartImage.png";
 
 const Header = () => {
   console.log(process.env.NODE_ENV);
-  const navigate = useNavigate();
   const userName = useSelector(state => state.userSlice.user.name);
+  const cartData = useSelector(state => state.userSlice.user.cart);
   const dispatch = useDispatch();
 
   return (
     <header id="header">
       <div className="headerContainer">
         <nav className="d-flex nav-main align-items-center justify-content-space-between">
-          <a>
-            <img src={Logo} />
-          </a>
-          <ul className="headerList d-flex justify-content-center">
+          <Link to="/">
+            <img src={logoUrl} alt="grocery app" />
+          </Link>
+          <ul className="headerList d-flex justify-content-center align-items-center">
             <li>
               <a href="#">
                 {!userName && (
@@ -44,12 +45,26 @@ const Header = () => {
             </li>
             <li>
               {userName && (
+                <Link className="btn btn-info m-3" to="/orders">
+                  Past Orders
+                </Link>
+              )}
+            </li>
+            <li className="cartIconWrap d-flex">
+              {userName && (
+                <button className="btn" to="/">
+                  <img className="me-1" src={cartImageUrl} alt="cart icon" />({cartData.length})
+                </button>
+              )}
+            </li>
+            <li>
+              {userName && (
                 <button
                   onClick={() => {
                     localStorage.removeItem("userToken");
                     dispatch(logoutUser());
                   }}
-                  className="btn btn-success m-3"
+                  className="btn btn-logOut m-3"
                 >
                   Log out
                 </button>
